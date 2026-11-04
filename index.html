@@ -3,14 +3,1117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт</title>
-    <link rel="stylesheet" href="style.css">
+    <title>HISPS // Premium Cyberpunk Sneaker Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0b10;
+            --bg-secondary: #121520;
+            --bg-card: rgba(18, 21, 32, 0.7);
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --accent-green: #10b981;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-glow: rgba(139, 92, 246, 0.3);
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas Interactive Background */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header & Navbar */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            color: #000;
+            text-align: center;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 11, 16, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--accent-purple);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            transition: transform 0.2s;
+        }
+
+        .action-icon:hover {
+            transform: scale(1.1);
+            color: var(--accent-cyan);
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent-pink);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .btn-sound {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Account Status Badge */
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            cursor: pointer;
+        }
+
+        .user-status .role-tag {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .role-tag.admin { background: var(--accent-pink); color: white; }
+        .role-tag.user { background: var(--accent-cyan); color: #000; }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 8%;
+            min-height: 80vh;
+        }
+
+        .hero-text {
+            max-width: 550px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+        }
+
+        .hero-image {
+            position: relative;
+            width: 450px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-shoe-img {
+            width: 110%;
+            filter: drop-shadow(0 20px 30px rgba(139, 92, 246, 0.5));
+            animation: floatShoe 4s ease-in-out infinite;
+            transform: rotate(-15deg);
+        }
+
+        @keyframes floatShoe {
+            0%, 100% { transform: translateY(0) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(-10deg); }
+        }
+
+        /* Controls / Filter Bar */
+        .catalog-controls {
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: 0 0 12px var(--accent-purple);
+        }
+
+        /* Catalog Grid */
+        .catalog-container {
+            padding: 20px 8% 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .shoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .shoe-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .shoe-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+        }
+
+        .shoe-card-img-wrap {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .shoe-card-img {
+            max-width: 90%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+        }
+
+        .shoe-card:hover .shoe-card-img {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .shoe-details {
+            margin-top: 15px;
+        }
+
+        .shoe-category {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .shoe-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        .shoe-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+        }
+
+        .shoe-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-glow);
+            color: white;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .btn-edit-product {
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid var(--accent-pink);
+            color: var(--accent-pink);
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Customizer Section */
+        .customizer-section {
+            padding: 60px 8%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .customizer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .custom-preview {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid var(--border-glow);
+            position: relative;
+        }
+
+        .custom-shoe-svg {
+            width: 100%;
+            max-width: 400px;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+        }
+
+        .color-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-picker-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-dot.active {
+            border-color: white;
+            transform: scale(1.15);
+        }
+
+        /* Floating Admin Button */
+        .admin-fab {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, var(--accent-pink), var(--accent-purple));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+
+        /* Modal Panels (Cart, Auth, Admin, Size Guide) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 35px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-glow);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        /* Slide-in Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 420px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-glow);
+            z-index: 1001;
+            transition: right 0.4s cubic-bezier(0.075, 0.82, 0.16, 1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.active {
+            right: 0;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .cart-footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Привет! Я создатель этого сайта 👋</h1>
-        <p>Это моя первая страница, запущенная через GitHub Pages.</p>
-        <a href="https://github.com" target="_blank" class="button">Мой GitHub</a>
+
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" id="announcementBar">
+        🚀 БЕСПЛАТНАЯ ДОСТАВКА HISPS ПО ВСЕЙ РОССИИ ПРИ ЗАКАЗЕ ОТ 15 000 ₽
     </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo" onclick="scrollToSection('hero')">
+            <i class="fa-solid fa-bolt"></i> HISPS//
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero" class="active">Главная</a></li>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#customizer">HISPS Lab</a></li>
+                <li><a href="#size-fit" onclick="openModal('sizeModal')">Подбор размера</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="btn-sound" id="soundToggleBtn" onclick="toggleSound()">
+                <i class="fa-solid fa-volume-high"></i> Звук
+            </button>
+            <div class="user-status" onclick="openModal('authModal')" id="userStatusBox">
+                <i class="fa-solid fa-user"></i>
+                <span id="userNameDisplay">Войти</span>
+                <span class="role-tag user" id="userRoleBadge">Гость</span>
+            </div>
+            <div class="action-icon" onclick="toggleCart()">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="badge" id="cartBadge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-text reveal">
+            <h1>БУДУЩЕЕ <span>HISPS</span> УЖЕ ЗДЕСЬ</h1>
+            <p>Эксклюзивная коллекция лимитированных кроссовок с киберпанк дизайном и идеальной амортизацией.</p>
+            <button class="btn-primary" onclick="scrollToSection('catalog')">
+                Перейти в каталог <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+        <div class="hero-image reveal">
+            <img src="https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png" alt="HISPS Runner" class="hero-shoe-img">
+        </div>
+    </section>
+
+    <!-- Catalog Controls -->
+    <div class="catalog-controls" id="catalog">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">Все пары</button>
+            <button class="filter-btn" onclick="filterCategory('running', this)">Беговые</button>
+            <button class="filter-btn" onclick="filterCategory('lifestyle', this)">Лайфстайл</button>
+            <button class="filter-btn" onclick="filterCategory('limited', this)">Limited</button>
+        </div>
+        <div style="color: var(--text-secondary);">
+            Размер EU: 
+            <select id="sizeFilter" onchange="renderCatalog()" class="form-control" style="width: auto; display: inline-block; padding: 4px 10px;">
+                <option value="all">Все размеры</option>
+                <option value="40">40 EU</option>
+                <option value="41">41 EU</option>
+                <option value="42">42 EU</option>
+                <option value="43">43 EU</option>
+                <option value="44">44 EU</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Catalog Grid Section -->
+    <section class="catalog-container">
+        <h2 class="section-title reveal"><i class="fa-solid fa-fire" style="color: var(--accent-pink);"></i> Популярные модели HISPS</h2>
+        <div class="shoes-grid" id="shoesGrid"></div>
+    </section>
+
+    <!-- Customizer Section (HISPS Lab) -->
+    <section class="customizer-section" id="customizer">
+        <h2 class="section-title reveal" style="justify-content: center;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-cyan);"></i> HISPS 3D Custom Lab</h2>
+        <div class="customizer-grid">
+            <div class="custom-preview reveal">
+                <!-- Interactive Vector Shoe -->
+                <svg class="custom-shoe-svg" viewBox="0 0 600 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path id="svgSole" d="M 50 280 Q 200 320 550 280 L 530 250 Q 200 280 50 250 Z" fill="#8b5cf6"/>
+                    <path id="svgUpper" d="M 60 250 Q 150 120 300 120 Q 420 120 520 250 Z" fill="#121520" stroke="#8b5cf6" stroke-width="4"/>
+                    <path id="svgLogo" d="M 220 200 L 320 160 L 260 220 Z" fill="#06b6d4"/>
+                    <path id="svgLaces" d="M 280 140 L 310 180 M 300 135 L 330 175 M 320 130 L 350 170" stroke="#ffffff" stroke-width="5"/>
+                </svg>
+            </div>
+            <div class="color-controls reveal">
+                <h3>Собери свой уникальный дизайн</h3>
+                <div class="control-group">
+                    <label>Цвет верха (Upper):</label>
+                    <div class="color-picker-options">
+                        <div class="color-dot active" style="background: #121520;" onclick="changeCustomColor('svgUpper', '#121520', this)"></div>
+                        <div class="color-dot" style="background: #ec4899;" onclick="changeCustomColor('svgUpper', '#ec4899', this)"></div>
+                        <div class="color-dot" style="background: #3b82f6;" onclick="changeCustomColor('svgUpper', '#3b82f6', this)"></div>
+                        <div class="color-dot" style="background: #f59e0b;" onclick="changeCustomColor('svgUpper', '#f59e0b', this)"></div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Цвет подошвы (Sole):</label>
+                    <div class="color-picker-options">
+                        <div class="color-dot active" style="background: #8b5cf6;" onclick="changeCustomColor('svgSole', '#8b5cf6', this)"></div>
+                        <div class="color-dot" style="background: #06b6d4;" onclick="changeCustomColor('svgSole', '#06b6d4', this)"></div>
+                        <div class="color-dot" style="background: #ffffff;" onclick="changeCustomColor('svgSole', '#ffffff', this)"></div>
+                        <div class="color-dot" style="background: #10b981;" onclick="changeCustomColor('svgSole', '#10b981', this)"></div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Цвет акцента и лого (Swoosh):</label>
+                    <div class="color-picker-options">
+                        <div class="color-dot active" style="background: #06b6d4;" onclick="changeCustomColor('svgLogo', '#06b6d4', this)"></div>
+                        <div class="color-dot" style="background: #ec4899;" onclick="changeCustomColor('svgLogo', '#ec4899', this)"></div>
+                        <div class="color-dot" style="background: #eab308;" onclick="changeCustomColor('svgLogo', '#eab308', this)"></div>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="addCustomToCart()"><i class="fa-solid fa-cart-plus"></i> Заказать кастом (24 990 ₽)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Admin Button -->
+    <button class="admin-fab" id="adminFab" style="display: none;" onclick="openModal('adminModal')">
+        <i class="fa-solid fa-sliders"></i> Панель Админа
+    </button>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Ваша Корзина</h2>
+            <i class="fa-solid fa-xmark modal-close" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cartItemsList"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cartTotalPrice">0 ₽</span>
+            </div>
+            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="checkout()">
+                Оформить заказ
+            </button>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('authModal')"></i>
+            <h3 class="modal-title">Вход в аккаунт</h3>
+            <div class="form-group">
+                <label>Логин:</label>
+                <input type="text" id="loginUsername" class="form-control" placeholder="admin или ваш логин">
+            </div>
+            <div class="form-group">
+                <label>Пароль:</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="admin123">
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;">
+                💡 <b>Данные админа для теста:</b> Логин: <code>admin</code> | Пароль: <code>admin123</code>
+            </p>
+            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="login()">Войти</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box" style="max-width: 650px;">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('adminModal')"></i>
+            <h3 class="modal-title"><i class="fa-solid fa-gears" style="color: var(--accent-pink);"></i> Панель Управления HISPS</h3>
+            
+            <div class="form-group">
+                <label>Изменить текст баннера в шапке:</label>
+                <input type="text" id="adminBannerInput" class="form-control">
+                <button class="btn-primary" style="margin-top: 8px; padding: 6px 16px;" onclick="updateBanner()">Обновить баннер</button>
+            </div>
+
+            <hr style="border-color: var(--border-glow); margin: 20px 0;">
+
+            <h4>Добавить новую модель в каталог</h4>
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" id="newShoeTitle" class="form-control" placeholder="Название модели">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="newShoePrice" class="form-control" placeholder="Цена ₽">
+                <select id="newShoeCategory" class="form-control">
+                    <option value="running">Беговые</option>
+                    <option value="lifestyle">Лайфстайл</option>
+                    <option value="limited">Limited</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" id="newShoeImg" class="form-control" placeholder="Ссылка на фото (URL)">
+            </div>
+            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="addNewShoe()">
+                + Добавить в каталог
+            </button>
+        </div>
+    </div>
+
+    <!-- Size Modal -->
+    <div class="modal-overlay" id="sizeModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('sizeModal')"></i>
+            <h3 class="modal-title">Калькулятор размера</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 15px;">Измерьте длину стопы от пятки до большого пальца в см:</p>
+            <input type="number" id="footLength" class="form-control" placeholder="Например: 26.5" oninput="calculateSize()">
+            <div id="sizeResult" style="margin-top: 20px; font-size: 1.2rem; font-weight: bold; text-align: center; color: var(--accent-cyan);"></div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        // State Management
+        let soundEnabled = true;
+        let currentUser = JSON.parse(localStorage.getItem('hisps_user')) || { name: 'Гость', role: 'guest' };
+        let cart = JSON.parse(localStorage.getItem('hisps_cart')) || [];
+
+        // Initial Products Catalog
+        let shoes = JSON.parse(localStorage.getItem('hisps_shoes')) || [
+            {
+                id: 1,
+                title: 'HISPS Cyber Pulse X',
+                category: 'running',
+                price: 18990,
+                img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png',
+                sizes: [40, 41, 42, 43, 44]
+            },
+            {
+                id: 2,
+                title: 'HISPS Neon Spectre',
+                category: 'limited',
+                price: 22490,
+                img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5816.png',
+                sizes: [41, 42, 43]
+            },
+            {
+                id: 3,
+                title: 'HISPS Urban Volt',
+                category: 'lifestyle',
+                price: 15990,
+                img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5821.png',
+                sizes: [40, 42, 44]
+            }
+        ];
+
+        // Sound Effects via Web Audio API
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(freq = 440, type = 'sine') {
+            if (!soundEnabled) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundToggleBtn');
+            btn.innerHTML = soundEnabled ? '<i class="fa-solid fa-volume-high"></i> Звук' : '<i class="fa-solid fa-volume-xmark"></i> Без звука';
+        }
+
+        // Render Catalog
+        function renderCatalog(filterCat = 'all') {
+            const grid = document.getElementById('shoesGrid');
+            const sizeVal = document.getElementById('sizeFilter').value;
+            grid.innerHTML = '';
+
+            const filtered = shoes.filter(s => {
+                const matchCat = filterCat === 'all' || s.category === filterCat;
+                const matchSize = sizeVal === 'all' || s.sizes.includes(parseInt(sizeVal));
+                return matchCat && matchSize;
+            });
+
+            filtered.forEach(shoe => {
+                const card = document.createElement('div');
+                card.className = 'shoe-card reveal active';
+                card.innerHTML = `
+                    <div class="shoe-card-img-wrap">
+                        <img src="${shoe.img}" alt="${shoe.title}" class="shoe-card-img">
+                    </div>
+                    <div class="shoe-details">
+                        <span class="shoe-category">${shoe.category}</span>
+                        <h3 class="shoe-title">${shoe.title}</h3>
+                        <div class="shoe-price">${shoe.price.toLocaleString()} ₽</div>
+                    </div>
+                    <div class="shoe-actions">
+                        <button class="btn-add-cart" onclick="addToCart(${shoe.id})">В корзину</button>
+                        ${currentUser.role === 'admin' ? `<button class="btn-edit-product" onclick="editProduct(${shoe.id})"><i class="fa-solid fa-pen"></i></button>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat, btn) {
+            playSound(600);
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCatalog(cat);
+        }
+
+        // Cart Actions
+        function addToCart(id) {
+            playSound(800);
+            const shoe = shoes.find(s => s.id === id);
+            cart.push(shoe);
+            updateCart();
+            toggleCart(true);
+        }
+
+        function updateCart() {
+            localStorage.setItem('hisps_cart', JSON.stringify(cart));
+            document.getElementById('cartBadge').innerText = cart.length;
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold; font-size: 0.9rem;">${item.title}</div>
+                            <div style="color: var(--accent-purple); font-weight: bold;">${item.price.toLocaleString()} ₽</div>
+                        </div>
+                        <i class="fa-solid fa-trash" style="cursor: pointer; color: var(--accent-pink);" onclick="removeFromCart(${index})"></i>
+                    </div>
+                `;
+            });
+
+            document.getElementById('cartTotalPrice').innerText = total.toLocaleString() + ' ₽';
+        }
+
+        function removeFromCart(index) {
+            playSound(300);
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart(forceOpen = false) {
+            playSound(500);
+            const drawer = document.getElementById('cartDrawer');
+            if (forceOpen) drawer.classList.add('active');
+            else drawer.classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert('Ваша корзина пуста!');
+            playSound(900);
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            alert('🎉 Заказ успешно оформлен! Наш менеджер свяжется с вами.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // Auth Logic
+        function login() {
+            const user = document.getElementById('loginUsername').value;
+            const pass = document.getElementById('loginPassword').value;
+
+            if (user === 'admin' && pass === 'admin123') {
+                currentUser = { name: 'Администратор', role: 'admin' };
+            } else {
+                currentUser = { name: user || 'Покупатель', role: 'user' };
+            }
+
+            localStorage.setItem('hisps_user', JSON.stringify(currentUser));
+            updateUserUI();
+            closeModal('authModal');
+            renderCatalog();
+            playSound(700);
+        }
+
+        function updateUserUI() {
+            document.getElementById('userNameDisplay').innerText = currentUser.name;
+            const badge = document.getElementById('userRoleBadge');
+            badge.innerText = currentUser.role.toUpperCase();
+            badge.className = `role-tag ${currentUser.role}`;
+            document.getElementById('adminFab').style.display = currentUser.role === 'admin' ? 'flex' : 'none';
+        }
+
+        // Admin Functionalities
+        function updateBanner() {
+            const val = document.getElementById('adminBannerInput').value;
+            if (val) {
+                document.getElementById('announcementBar').innerText = val;
+                playSound(600);
+            }
+        }
+
+        function addNewShoe() {
+            const title = document.getElementById('newShoeTitle').value;
+            const price = parseInt(document.getElementById('newShoePrice').value);
+            const category = document.getElementById('newShoeCategory').value;
+            const img = document.getElementById('newShoeImg').value || 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png';
+
+            if (!title || !price) return alert('Заполните название и цену');
+
+            shoes.push({ id: Date.now(), title, price, category, img, sizes: [40, 41, 42, 43, 44] });
+            localStorage.setItem('hisps_shoes', JSON.stringify(shoes));
+            renderCatalog();
+            closeModal('adminModal');
+            playSound(800);
+        }
+
+        function editProduct(id) {
+            const shoe = shoes.find(s => s.id === id);
+            const newTitle = prompt('Новое название:', shoe.title);
+            const newPrice = prompt('Новая цена:', shoe.price);
+            if (newTitle && newPrice) {
+                shoe.title = newTitle;
+                shoe.price = parseInt(newPrice);
+                localStorage.setItem('hisps_shoes', JSON.stringify(shoes));
+                renderCatalog();
+            }
+        }
+
+        // Customizer Controls
+        function changeCustomColor(partId, color, el) {
+            playSound(550);
+            document.getElementById(partId).setAttribute('fill', color);
+            el.parentElement.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function addCustomToCart() {
+            cart.push({ id: Date.now(), title: 'HISPS Custom Pair 1/1', price: 24990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png' });
+            updateCart();
+            toggleCart(true);
+            playSound(800);
+        }
+
+        // Size Calculator
+        function calculateSize() {
+            const cm = parseFloat(document.getElementById('footLength').value);
+            const res = document.getElementById('sizeResult');
+            if (!cm) { res.innerText = ''; return; }
+            const euSize = Math.round((cm + 1.5) * 1.5);
+            res.innerText = `Рекомендуемый размер: ${euSize} EU`;
+        }
+
+        // Modals & Navigation
+        function openModal(id) { playSound(400); document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { playSound(300); document.getElementById(id).classList.remove('active'); }
+        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+        // Canvas Particles Background
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateBg);
+        }
+
+        animateBg();
+
+        // Initial Load
+        updateUserUI();
+        updateCart();
+        renderCatalog();
+    </script>
 </body>
 </html>
