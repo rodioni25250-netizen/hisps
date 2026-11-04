@@ -38,7 +38,6 @@
             position: relative;
         }
 
-        /* Fixed Background Canvas (Steady, no rotation) */
         #bgCanvas {
             position: fixed;
             top: 0;
@@ -49,7 +48,6 @@
             pointer-events: none;
         }
 
-        /* Fixed Navigation Header (Starts at top) */
         header {
             position: fixed;
             top: 0;
@@ -75,7 +73,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         nav ul {
@@ -150,14 +148,12 @@
         .role-tag.admin { background: var(--accent-pink); color: white; }
         .role-tag.user { background: var(--accent-cyan); color: #000; }
 
-        /* Main Wrapper */
         main {
             position: relative;
             z-index: 10;
-            padding-top: 90px; /* Offset for fixed header */
+            padding-top: 90px;
         }
 
-        /* 1. Hero Section */
         .hero {
             display: flex;
             align-items: center;
@@ -211,7 +207,6 @@
             box-shadow: 0 0 35px rgba(6, 182, 212, 0.6);
         }
 
-        /* Isolated 3D Floating Sneaker in Hero */
         .hero-visual {
             width: 480px;
             height: 400px;
@@ -230,7 +225,6 @@
             transform: rotate(-15deg);
         }
 
-        /* 2. Features / Tech Section */
         .features-section {
             padding: 60px 8%;
             display: grid;
@@ -244,12 +238,13 @@
             border-radius: 20px;
             padding: 30px;
             backdrop-filter: blur(10px);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
         }
 
         .feature-card i {
@@ -269,7 +264,6 @@
             line-height: 1.5;
         }
 
-        /* 3. Catalog Section */
         .catalog-container {
             padding: 80px 8%;
         }
@@ -313,11 +307,10 @@
 
         .shoes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 35px;
         }
 
-        /* Shoe Card with Isolated 3D Image Tilt */
         .shoe-card {
             background: var(--bg-card);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -332,9 +325,9 @@
         }
 
         .shoe-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-cyan);
-            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.2);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.25);
         }
 
         .shoe-card-img-wrap {
@@ -353,7 +346,7 @@
             object-fit: contain;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
             transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.2s ease-out;
         }
 
         .shoe-details {
@@ -410,7 +403,6 @@
             box-shadow: 0 0 20px var(--accent-cyan);
         }
 
-        /* 4. HISPS Lab 3D Customizer Section */
         .customizer-section {
             padding: 100px 8%;
             background: var(--bg-secondary);
@@ -471,7 +463,6 @@
             box-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
 
-        /* 5. About / Story Section */
         .story-section {
             padding: 100px 8%;
             display: grid;
@@ -520,7 +511,6 @@
             color: var(--text-secondary);
         }
 
-        /* 6. Reviews Section */
         .reviews-section {
             padding: 80px 8%;
             background: var(--bg-secondary);
@@ -559,7 +549,6 @@
             font-size: 1.05rem;
         }
 
-        /* 7. FAQ Section */
         .faq-section {
             padding: 100px 8%;
         }
@@ -604,20 +593,64 @@
             display: block;
         }
 
-        /* Footer */
+        /* Footer with Legal Information */
         footer {
             padding: 60px 8%;
             background: #040508;
             border-top: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 30px;
-            color: var(--text-secondary);
+            gap: 20px;
+            font-size: 0.85rem;
         }
 
-        /* Floating Admin Button */
+        .legal-notice {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 650px;
+        }
+
         .admin-fab {
             position: fixed;
             bottom: 30px;
@@ -636,7 +669,6 @@
             border: none;
         }
 
-        /* Cart Drawer */
         .cart-drawer {
             position: fixed;
             top: 0;
@@ -680,7 +712,6 @@
             object-fit: contain;
         }
 
-        /* Modals Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -705,7 +736,7 @@
             border-radius: 28px;
             padding: 40px;
             width: 90%;
-            max-width: 540px;
+            max-width: 560px;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
@@ -731,28 +762,41 @@
             margin-top: 8px;
         }
 
-        /* Scroll Reveal Animation */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            margin-top: 3px;
+            accent-color: var(--accent-purple);
+            cursor: pointer;
+        }
+
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(50px) scale(0.96);
+            transition: all 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
     </style>
 </head>
 <body>
 
-    <!-- Steady Background Canvas -->
     <canvas id="bgCanvas"></canvas>
 
-    <!-- Header Navigation -->
     <header>
         <div class="logo" onclick="scrollToSec('hero')">
-            <i class="fa-solid fa-bolt"></i> HISPS//
+            <i class="fa-solid fa-bolt"></i> HISPS
         </div>
         <nav>
             <ul>
@@ -777,7 +821,6 @@
     </header>
 
     <main>
-        <!-- 1. Hero Section -->
         <section class="hero" id="hero">
             <div class="hero-text reveal active">
                 <h1>БУДУЩЕЕ <span>HISPS</span> УЖЕ ЗДЕСЬ</h1>
@@ -787,11 +830,10 @@
                 </button>
             </div>
             <div class="hero-visual reveal active">
-                <img src="https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png" alt="HISPS Flagship" class="hero-shoe-3d" id="heroShoeImg">
+                <img src="https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png" alt="HISPS Flagship" class="hero-shoe-3d">
             </div>
         </section>
 
-        <!-- 2. Features / Tech Section -->
         <section class="features-section">
             <div class="feature-card reveal">
                 <i class="fa-solid fa-microchip"></i>
@@ -801,7 +843,7 @@
             <div class="feature-card reveal">
                 <i class="fa-solid fa-shield-halved"></i>
                 <h3>Carbon Armor</h3>
-                <p>Усиленный каркас из углеволокна защищает стопу от деформаций и держит идеальную форму годами.</p>
+                <p>Усиленный каркас из углеволокна защищает стопу от деформаций и держит форму годами.</p>
             </div>
             <div class="feature-card reveal">
                 <i class="fa-solid fa-feather"></i>
@@ -810,12 +852,11 @@
             </div>
         </section>
 
-        <!-- 3. Extended Catalog Section -->
         <section class="catalog-container" id="catalog">
             <div class="section-header reveal">
                 <div>
                     <h2 class="section-title">Каталог моделей</h2>
-                    <p style="color: var(--text-secondary); margin-top: 5px;">Выберите свою идеальную пару из лимитированной линейки</p>
+                    <p style="color: var(--text-secondary); margin-top: 5px;">Выберите свою идеальную пару из 10 эксклюзивных вариантов</p>
                 </div>
                 <div class="filters">
                     <button class="filter-btn active" onclick="filterCategory('all', this)">Все пары</button>
@@ -827,7 +868,6 @@
             <div class="shoes-grid" id="shoesGrid"></div>
         </section>
 
-        <!-- 4. HISPS 3D Custom Lab -->
         <section class="customizer-section" id="customizer">
             <div class="customizer-grid">
                 <div class="custom-preview reveal">
@@ -862,12 +902,10 @@
             </div>
         </section>
 
-        <!-- 5. About / Story Section -->
         <section class="story-section" id="story">
             <div class="story-text reveal">
                 <h2>Философия бренда HISPS</h2>
-                <p>Мы создаем обувь для тех, кто опережает свое время. Объединяя передовые технологии космических материалов и дерзкий киберпанк-дизайн, HISPS стирает грань между спортивной экипировкой и искусством будущего.</p>
-                <p>Каждая пара проходит строгий краш-тест на износостойкость и создается ограниченными сериями.</p>
+                <p>Мы создаем обувь для тех, кто опережает свое время. Объединяя передовые технологии материалов и киберпанк-дизайн, HISPS стирает грань между спортивной экипировкой и искусством будущего.</p>
                 <div class="story-stats">
                     <div class="stat-box">
                         <div class="stat-number">100%</div>
@@ -888,7 +926,6 @@
             </div>
         </section>
 
-        <!-- 6. Reviews Section -->
         <section class="reviews-section">
             <div style="text-align: center;" class="reveal">
                 <h2 class="section-title">Отзывы покупателей</h2>
@@ -896,62 +933,76 @@
             </div>
             <div class="reviews-grid">
                 <div class="review-card reveal">
-                    <div class="review-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">«Невероятно крутой дизайн вживую! Амортизация просто космос, ноги вообще не устают после целого дня на ногах в городе.»</p>
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">«Дизайн вживую смотрится невероятно. Амортизация отличная, ноги не устают весь день.»</p>
                     <div class="review-author">Алексей М.</div>
                 </div>
                 <div class="review-card reveal">
-                    <div class="review-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">«Заказала кастомную пару в Лаборатории. Приехало быстро, качество швов и цвета идеальное. Рекомендую всем!»</p>
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">«Заказала кастом в HISPS Lab. Качество идеальное, быстрая доставка!»</p>
                     <div class="review-author">Кристина В.</div>
                 </div>
                 <div class="review-card reveal">
-                    <div class="review-stars">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="review-text">«Лучший магазин лимитированных кроссовок. Отличный сервис и поддержка.»</p>
+                    <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">«Лучший концептуальный магазин кроссовок. Приятный сервис и упаковка.»</p>
                     <div class="review-author">Дмитрий С.</div>
                 </div>
             </div>
         </section>
 
-        <!-- 7. FAQ Section -->
         <section class="faq-section" id="faq">
             <div style="text-align: center;" class="reveal">
                 <h2 class="section-title">Частые вопросы</h2>
-                <p style="color: var(--text-secondary); margin-top: 5px;">Всё, что вам нужно знать перед покупкой</p>
+                <p style="color: var(--text-secondary); margin-top: 5px;">Всё, что нужно знать перед покупкой</p>
             </div>
             <div class="faq-list">
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Как узнать свой размер EU? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Вы можете воспользоваться нашим встроенным калькулятором размера в шапке сайта или измерить длину стопы в сантиметрах и сверить с таблицей.</div>
+                    <div class="faq-question">Как подобрать правильный размер? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Все модели идут точно в полноразмерную сетку EU. В окне любого товара вы можете сразу выбрать свой европейский размер.</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Сколько идет доставка по России? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Доставка курьерской службой СДЭК или Почтой России занимает от 2 до 6 рабочих дней в зависимости от вашего региона.</div>
+                    <div class="faq-question">Какие условия возврата и обмена товара? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Согласно ст. 26.1 Закона РФ «О защите прав потребителей», вы вправе отказаться от товара в любое время до его получения, а после получения — в течение 7 дней (при сохранении товарного вида и фабричных ярлыков). Возврат денежных средств осуществляется в течение 10 дней.</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">Можно ли вернуть товар, если не подойдет размер? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Да, в течение 14 дней вы можете оформить возврат или обмен на другой размер при сохранении товарного вида.</div>
+                    <div class="faq-question">Сколько занимает доставка? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Доставка курьерской службой занимает от 2 до 5 рабочих дней по всей России.</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer with Legal Compliance -->
     <footer>
-        <div class="logo">
-            <i class="fa-solid fa-bolt"></i> HISPS//
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 15px;"><i class="fa-solid fa-bolt"></i> HISPS</div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Вселенная будущего стиля и лимитированной обуви.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Покупателям</h4>
+                <ul>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#faq">Условия возврата</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal('privacyModal')">Политика конфиденциальности</a></li>
+                    <li><a href="javascript:void(0)" onclick="openModal('termsModal')">Публичная оферта</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Реквизиты продавца</h4>
+                <ul style="font-size: 0.85rem; color: var(--text-secondary);">
+                    <li>ИП Иванов Иван Иванович</li>
+                    <li>ИНН: 770101010101 / ОГРНИП: 320774600000000</li>
+                    <li>Режим работы: пн-вс 10:00 - 20:00 (МСК)</li>
+                    <li>Email: support@hisps-store.ru</li>
+                </ul>
+            </div>
         </div>
-        <p>© 2026 HISPS Store. Все права защищены. Вселенная будущего стиля.</p>
-        <div style="display: flex; gap: 20px; font-size: 1.2rem;">
-            <i class="fa-brands fa-telegram" style="cursor: pointer;"></i>
-            <i class="fa-brands fa-vk" style="cursor: pointer;"></i>
-            <i class="fa-brands fa-instagram" style="cursor: pointer;"></i>
+        <div class="footer-bottom">
+            <div class="legal-notice">
+                Информация на сайте не является публичной офертой (ст. 437 ГК РФ). Оформляя заказ, вы даете согласие на обработку персональных данных и соглашаетесь с условиями пользовательского соглашения.
+            </div>
+            <div>© 2026 HISPS. Все права защищены.</div>
         </div>
     </footer>
 
@@ -972,6 +1023,9 @@
                 <span>Итого:</span>
                 <span id="cartTotalPrice">0 ₽</span>
             </div>
+            <label class="checkbox-group" style="margin-bottom: 15px;">
+                <input type="checkbox" id="checkoutConsent" checked> Согласен с <a href="javascript:void(0)" onclick="openModal('termsModal')" style="color: var(--accent-cyan); text-decoration: underline;">публичной офертой</a> и на обработку перс. данных (152-ФЗ)
+            </label>
             <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="checkout()">Оформить заказ</button>
         </div>
     </div>
@@ -996,10 +1050,47 @@
                 <label>Пароль:</label>
                 <input type="password" id="loginPassword" class="form-control" placeholder="admin123">
             </div>
-            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 15px;">
+            <label class="checkbox-group">
+                <input type="checkbox" checked> Даю согласие на обработку персональных данных
+            </label>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 10px 0 15px;">
                 💡 Данные для входа админом: <b>admin</b> / <b>admin123</b>
             </p>
             <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="login()">Войти</button>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('privacyModal')"></i>
+            <h3 style="margin-bottom: 15px;">Политика конфиденциальности</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+                Настоящая Политика обработки персональных данных разработана в соответствии с Федеральным законом РФ от 27.07.2006 № 152-ФЗ «О персональных данных».
+            </p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+                1. Мы собираем только те персональные данные, которые необходимы для выполнения вашего заказа (ФИО, телефон, адрес доставки, email).
+            </p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                2. Персональные данные не передаются третьим лицам, за исключением случаев, связанных с исполнением обязательств по доставке заказов (курьерские службы).
+            </p>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-xmark modal-close" onclick="closeModal('termsModal')"></i>
+            <h3 style="margin-bottom: 15px;">Публичная оферта</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+                Настоящий документ является официальным предложением (публичной офертой) ИП Иванов И.И. и содержит все существенные условия продажи товаров дистанционным способом.
+            </p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+                1. Заказ товара оформляется через корзину интернет-магазина HISPS.
+            </p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                2. Возврат товара надлежащего качества возможен в течение 7 дней после получения при условии сохранения товарного вида.
+            </p>
         </div>
     </div>
 
@@ -1025,17 +1116,22 @@
 
     <!-- Core Scripts -->
     <script>
-        // State
         let currentUser = JSON.parse(localStorage.getItem('hisps_user')) || { name: 'Гость', role: 'guest' };
         let cart = JSON.parse(localStorage.getItem('hisps_cart')) || [];
+        
         let shoes = JSON.parse(localStorage.getItem('hisps_shoes')) || [
-            { id: 1, title: 'HISPS Cyber Pulse X', category: 'running', price: 18990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png', desc: 'Флагманская модель с улучшенной гелевой амортизацией и неоновой подсветкой швов.' },
-            { id: 2, title: 'HISPS Neon Spectre', category: 'limited', price: 22490, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5816.png', desc: 'Лимитированная серия с углепластиковой пластиной и футуристичным дизайном.' },
-            { id: 3, title: 'HISPS Urban Volt', category: 'lifestyle', price: 15990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5821.png', desc: 'Идеальные кроссовки на каждый день для динамичного городского ритма.' },
-            { id: 4, title: 'HISPS Quantum Strike', category: 'running', price: 19990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5818.png', desc: 'Созданы для максимальной скорости и устойчивости на любых поверхностях.' }
+            { id: 1, title: 'HISPS Cyber Pulse X', category: 'running', price: 18990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5823.png', country: 'Китай', desc: 'Флагманская модель с улучшенной гелевой амортизацией и неоновой подсветкой швов.' },
+            { id: 2, title: 'HISPS Neon Spectre', category: 'limited', price: 22490, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5816.png', country: 'Вьетнам', desc: 'Лимитированная серия с углепластиковой пластиной и футуристичным дизайном.' },
+            { id: 3, title: 'HISPS Urban Volt', category: 'lifestyle', price: 15990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5821.png', country: 'Китай', desc: 'Идеальные кроссовки на каждый день для динамичного городского ритма.' },
+            { id: 4, title: 'HISPS Quantum Strike', category: 'running', price: 19990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5818.png', country: 'Индонезия', desc: 'Созданы для максимальной скорости и устойчивости на любых поверхностях.' },
+            { id: 5, title: 'HISPS Air Phantom', category: 'lifestyle', price: 17490, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5827.png', country: 'Китай', desc: 'Невероятно легкие кроссовки с дышащей трехслойной сеткой.' },
+            { id: 6, title: 'HISPS Shadow Stealth', category: 'limited', price: 24990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5812.png', country: 'Вьетнам', desc: 'Тёмный футуристичный релиз из серии Cyberpunk с терморегуляцией.' },
+            { id: 7, title: 'HISPS Hyper Boost', category: 'running', price: 16990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5815.png', country: 'Китай', desc: 'Повышенная отдача энергии при каждом шаге благодаря двойной подошве.' },
+            { id: 8, title: 'HISPS Solar Flare', category: 'lifestyle', price: 18490, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5819.png', country: 'Индонезия', desc: 'Яркий оранжево-неоновый градиент для любителей выделяться в толпе.' },
+            { id: 9, title: 'HISPS Matrix Core', category: 'running', price: 21990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5825.png', country: 'Вьетнам', desc: 'Инновационная амортизация и встроенная поддержка голеностопа.' },
+            { id: 10, title: 'HISPS Vortex Prime', category: 'limited', price: 25990, img: 'https://pngimg.com/uploads/running_shoes/running_shoes_PNG5828.png', country: 'Китай', desc: 'Эксклюзивная топовая модель с титановыми нитями фиксации шнуровки.' }
         ];
 
-        // Isolated 3D Tilt Effect (Only on Sneaker Images, Background is steady)
         function initIsolated3DTilt() {
             const elements = document.querySelectorAll('.hero-shoe-3d, .shoe-card-img');
             elements.forEach(el => {
@@ -1055,7 +1151,6 @@
             });
         }
 
-        // Render Catalog
         function renderCatalog(filter = 'all') {
             const grid = document.getElementById('shoesGrid');
             grid.innerHTML = '';
@@ -1090,7 +1185,6 @@
             renderCatalog(cat);
         }
 
-        // Product Detail Modal
         function openProductDetail(id) {
             const s = shoes.find(item => item.id === id);
             if (!s) return;
@@ -1098,12 +1192,13 @@
             content.innerHTML = `
                 <i class="fa-solid fa-xmark modal-close" onclick="closeModal('productModal')"></i>
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <img src="${s.img}" style="max-height: 220px; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6);">
+                    <img src="${s.img}" style="max-height: 220px; object-fit: contain; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));">
                 </div>
                 <span class="shoe-category">${s.category}</span>
                 <h2 style="font-size: 1.8rem; margin: 8px 0;">${s.title}</h2>
-                <div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-purple); margin-bottom: 15px;">${s.price.toLocaleString()} ₽</div>
-                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">${s.desc || 'Эксклюзивная модель HISPS с премиальными материалами и гарантией качества.'}</p>
+                <div style="font-size: 1.5rem; font-weight: 900; color: var(--accent-purple); margin-bottom: 10px;">${s.price.toLocaleString()} ₽</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Страна-изготовитель: <b>${s.country || 'Китай'}</b></p>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">${s.desc}</p>
                 <div style="margin-bottom: 20px;">
                     <label style="font-weight: bold; display: block; margin-bottom: 8px;">Выберите размер EU:</label>
                     <div style="display: flex; gap: 10px;">
@@ -1119,7 +1214,6 @@
             openModal('productModal');
         }
 
-        // Cart Actions
         function addToCart(id) {
             const shoe = shoes.find(s => s.id === id);
             cart.push(shoe);
@@ -1163,6 +1257,8 @@
         }
 
         function checkout() {
+            const consent = document.getElementById('checkoutConsent').checked;
+            if (!consent) return alert('Необходимо подтвердить согласие на обработку персональных данных и условия оферты.');
             if (cart.length === 0) return alert('Ваша корзина пуста!');
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
             alert('🎉 Заказ успешно оформлен! Менеджер свяжется с вами для подтверждения.');
@@ -1171,7 +1267,6 @@
             toggleCart();
         }
 
-        // Auth & Admin
         function login() {
             const user = document.getElementById('loginUsername').value;
             const pass = document.getElementById('loginPassword').value;
@@ -1203,14 +1298,13 @@
 
             if (!title || !price) return alert('Заполните название и цену');
 
-            shoes.push({ id: Date.now(), title, price, category, img, desc: 'Новая модель из свежего поступления HISPS.' });
+            shoes.push({ id: Date.now(), title, price, category, img, country: 'Китай', desc: 'Новая эксклюзивная модель HISPS.' });
             localStorage.setItem('hisps_shoes', JSON.stringify(shoes));
             renderCatalog();
             closeModal('adminModal');
-            alert('Товар успешно добавлен в каталог!');
+            alert('Товар успешно добавлен!');
         }
 
-        // Customizer
         function changeCustomColor(part, color, el) {
             document.getElementById(part).setAttribute('fill', color);
             el.parentElement.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
@@ -1223,17 +1317,14 @@
             toggleCart(true);
         }
 
-        // FAQ Toggle
         function toggleFaq(item) {
             item.classList.toggle('active');
         }
 
-        // Modals & Navigation
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         function scrollToSec(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
 
-        // Steady Background Particle Canvas
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let pts = [];
@@ -1245,45 +1336,60 @@
         window.addEventListener('resize', resize);
         resize();
 
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 60; i++) {
             pts.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                r: Math.random() * 1.5 + 0.8,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4
+                r: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6
             });
         }
 
         function drawBg() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(139, 92, 246, 0.35)';
-            pts.forEach(p => {
+            ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+            ctx.strokeStyle = 'rgba(6, 182, 212, 0.12)';
+
+            for (let i = 0; i < pts.length; i++) {
+                let p = pts[i];
                 p.x += p.vx;
                 p.y += p.vy;
+
                 if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fill();
-            });
+
+                for (let j = i + 1; j < pts.length; j++) {
+                    let p2 = pts[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
             requestAnimationFrame(drawBg);
         }
         drawBg();
 
-        // Scroll Reveal Trigger
-        window.addEventListener('scroll', () => {
+        function handleScrollReveal() {
             document.querySelectorAll('.reveal').forEach(el => {
                 const top = el.getBoundingClientRect().top;
-                if (top < window.innerHeight - 60) el.classList.add('active');
+                if (top < window.innerHeight - 50) el.classList.add('active');
             });
-        });
+        }
+        window.addEventListener('scroll', handleScrollReveal);
 
-        // Initial Load
         updateUserUI();
         updateCart();
         renderCatalog();
-        initIsolated3DTilt();
+        handleScrollReveal();
     </script>
 </body>
 </html>
